@@ -16,8 +16,8 @@ function createToday(dir, filename, lastDay) {
         sh.cp(lastpath, todaypath);
     } else {
         sh.exec(`:> ${todaypath}`, { async: true });
-        config.set('last', filename);
     }
+    config.set('last', filename);
 }
 
 function getLastDay(dir) {
