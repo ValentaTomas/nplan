@@ -30,6 +30,12 @@ function getLastDay(dir) {
     }
 }
 
+async function archive(dir, filename) {
+    if (config.get('git') === 'next') {
+        sh.exec(`cd ${dir} && git add . && git commit -m "Auto-archiver: next-day ${filename}"`);
+    }
+}
+
 function checkoutToday(dir, filename) {
     const filepath = path.join(dir, filename);
     const today = fs.existsSync(filepath);
@@ -37,6 +43,7 @@ function checkoutToday(dir, filename) {
         openJournal(filepath);
     } else {
         const lastDay = getLastDay(dir);
+        archive(dir, filename);
         createToday(dir, filename, lastDay);
         openJournal(filepath);
     }
@@ -49,10 +56,15 @@ function getFilename(day, month, year) {
 
 function main() {
     let dir = process.argv[2];
+    let repo = process.argv[3];
     if (dir) {
         config.set('dir', dir);
     } else {
         dir = config.get('dir');
+    }
+    if (repo) {
+        config.set('git', 'next');
+        sh.exec(`cd ${dir} && git remote add origin ${repo}`);
     }
     if (!dir) {
         throw new Error('You need to specify directory for saving entries.');
