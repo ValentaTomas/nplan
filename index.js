@@ -59,7 +59,7 @@ function main() {
     }
     const datetime = new Date();
     const day = datetime.getUTCDate();
-    const month = datetime.getMonth();
+    const month = datetime.getMonth() + 1;
     const year = datetime.getUTCFullYear();
     const filename = getFilename(day, month, year);
     checkoutToday(dir, filename);

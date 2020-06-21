@@ -1,9 +1,11 @@
 {
+  "bin": "index.js",
   "name": "njor",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "package": "npm pkg --targets node10-macos-x64",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -11,5 +13,8 @@
   "dependencies": {
     "configstore": "^5.0.1",
     "shelljs": "^0.8.4"
+  },
+  "devDependencies": {
+    "pkg": "^4.4.8"
   }
 }
